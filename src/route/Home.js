@@ -41,7 +41,15 @@ export default function Home(){
 
     const bannerGear = useMemo(() => banners?.length ? (
         <StyledSection style={{height:200}}>
-            <ImageCarousel data={banners.map((i) => i.bn_img_src)} renderStyle={{borderRadius:10, width:'90%'}} loop={true} carouselOption={{autoPlay:true, autoPlayInterval:3000}}/>
+            <ImageCarousel 
+                data={banners.map((i) => {
+                    return {src : i.bn_img_src, link : i.bn_link}
+                })} 
+                isLink={true}
+                renderStyle={{borderRadius:10, width:'90%'}} 
+                loop={true} 
+                carouselOption={{autoPlay:true, autoPlayInterval:3000}}
+            />
         </StyledSection>
     ): null, [banners]);
 
@@ -56,13 +64,13 @@ export default function Home(){
                     {
                     category?.length ? (
                         category.map((item, index) => (
-                            <StyledCategoryItems key={index}  onPress={() => navigation.navigate("마이페이지")}>
+                            <StyledCategoryItems key={index} onPress={() => navigation.navigate("마이페이지")}>
                                 <StyledCategoryIconView><StyledCategoryImg source={{uri:item.ctg_icon_img, priority: FastImage.priority.normal}}/></StyledCategoryIconView>
                                 <StyledCategoryText>{item.ctg_title}</StyledCategoryText>
                             </StyledCategoryItems>
                         ))
                     )
-                    :null
+                    : null
                     }
                 </StyledCategoryRow>
             </StyledSectionContent>                

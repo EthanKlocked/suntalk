@@ -1,13 +1,14 @@
 //------------------------------ MODULE --------------------------------
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import { Dimensions, Linking } from 'react-native';
 import { useState, useMemo, useRef } from 'react';
 import FastImage from 'react-native-fast-image';
 import { onerror } from '@/assets/img';
 import Carousel from 'react-native-reanimated-carousel';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 //---------------------------- COMPONENT -------------------------------
-export default function ImageCarousel({data, renderStyle={}, carouselOption={}, firstItem=0, loop=false}){
+export default function ImageCarousel({data, isLink = false, renderStyle={}, carouselOption={}, firstItem=0, loop=false}){
     //init
     const SLIDER_WIDTH = Dimensions.get('window').width;
 
@@ -51,10 +52,20 @@ export default function ImageCarousel({data, renderStyle={}, carouselOption={}, 
                     scrollAnimationDuration={500}
                     onSnapToItem={(p) => {setPageIndex(p)}}
                     renderItem={({ item }) => {
-                        item = item?.replace('http','https');
-                        return (
-                            <StyledSliderImage style={renderStyle} source={item ? {uri:item} : onerror} resizeMode="contain" defaultSource={onerror}/>
-                        )
+                        if(isLink){
+                            const srcTarget = item?.src.replace('http','https');
+                            return (
+                                <StyledSlderImageLink onPress={() => Linking.openURL(item?.link)} activeOpacity={1}>
+                                    <StyledSliderImage style={renderStyle} source={srcTarget ? {uri:srcTarget} : onerror} resizeMode="contain" defaultSource={onerror}/>                            
+                                </StyledSlderImageLink>
+                            )
+                        }else{
+                            item = item?.replace('http','https');
+                            return (
+                                <StyledSliderImage style={renderStyle} source={item ? {uri:item} : onerror} resizeMode="contain" defaultSource={onerror}/>
+                            )
+                        }
+
                     }}
                     {...carouselOption}
                 />
@@ -85,4 +96,6 @@ const StyledPageDot = styled.TouchableOpacity`
     height:8px;
     border-radius:4px;
     margin: 0 5px;
+`;
+const StyledSlderImageLink = styled.TouchableOpacity`
 `;

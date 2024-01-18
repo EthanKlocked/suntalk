@@ -58,12 +58,14 @@ export default function Desc({route}){
                     },
                     error => {
                         console.log(error);
+                        /*
                         Toast.show({
                             type: 'bad',
                             text1: error.message,
                             topOffset: 120,
                             visibilityTime: 1000
                         });                                          
+                        */
                     },
                     {
                         enableHighAccuracy: false,
@@ -121,9 +123,13 @@ export default function Desc({route}){
                             </StyledIconTouch>
                         ) : null
                     }
-                    <StyledIconTouch>
-                        <StyledShareIcon source={share} resizeMode="contain"/>                      
-                    </StyledIconTouch>
+                    {
+                        /*
+                        <StyledIconTouch>
+                            <StyledShareIcon source={share} resizeMode="contain"/>                      
+                        </StyledIconTouch>                        
+                        */
+                    }
                 </StyledHeaderRight>
             </StyledHeader>
         );
@@ -167,7 +173,7 @@ export default function Desc({route}){
                             })}
                             suppressHighlighting={true}
                         >
-                            지도이동<Icon name="chevron-forward-outline" size={13.5}/>
+                            {/*지도이동<Icon name="chevron-forward-outline" size={13.5}/>*/}
                         </StyledSectionRightButton>
                     </StyledSectionRow>                    
                     <StyledSectionRow>

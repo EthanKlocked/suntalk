@@ -38,12 +38,14 @@ export default React.memo(({ title = "근처 매장 목록 보기", list = [] })
                     setOrder('asc');
                 },
                 error => { //case using cached position data
+                    /*
                     Toast.show({
                         type: 'bad',
                         text1: error.message,
                         topOffset: 120,
                         visibilityTime: 1000
                     });                         
+                    */
                     if(positionCache){
                         const {longitude, latitude} = positionCache;
                         const filteredList = li.sort((a,b) => (getDistance(longitude, latitude, a.store_addr_x, a.store_addr_y) - getDistance(longitude, latitude, b.store_addr_x, b.store_addr_y)));
